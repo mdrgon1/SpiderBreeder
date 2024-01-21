@@ -87,15 +87,17 @@ func _integrate_forces(state : PhysicsDirectBodyState) -> void:
 		if state.get_contact_count() > 0:
 			down = Vector3.ZERO
 			for i in state.get_contact_count():
-				if state.get_contact_collider_object(i).is_in_group("Climbable"):
+				var obj = state.get_contact_collider_object(i)
+				if obj and obj.is_in_group("Climbable"):
 					down -= state.get_contact_local_normal(i)
 			down = down.normalized()
 		if down != Vector3.ZERO and floor_cast.is_colliding():
 			down = -floor_cast.get_collision_normal()
-	elif down.is_equal_approx(Vector3.ZERO):
-		down = Vector3.DOWN
 	elif !down.is_equal_approx(Vector3.DOWN):
 		down = down.normalized().slerp(Vector3.DOWN, state.step)
+	
+	if down.is_equal_approx(Vector3.ZERO):
+		down = Vector3.DOWN
 	
 	if down.cross(-transform.basis.y).length() > 0.05:
 		var offset = down.cross(-transform.basis.y)

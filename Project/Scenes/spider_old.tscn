@@ -305,8 +305,8 @@ bind/8/bone = -1
 bind/8/pose = Transform( 0.322973, -0.169024, -0.931192, -0.921904, -0.278637, -0.269175, -0.213968, 0.945406, -0.245816, -0.0292647, -0.0482431, 0.163687 )
 
 [sub_resource type="CylinderShape" id=8]
-radius = 2.96687
 height = 1.64995
+radius = 2.96687
 
 [node name="spider" type="RigidBody"]
 collision_layer = 2
