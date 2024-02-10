@@ -7,7 +7,6 @@ var target : CollisionObject
 
 export var ready_to_land := false
 
-
 func _enter() -> void:
 	anim.play("jump")
 	ready_to_land = false

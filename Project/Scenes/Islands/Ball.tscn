@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Island.gd" type="Script" id=1]
+
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="SphereMesh" id=2]
+
+[sub_resource type="SphereShape" id=3]
+radius = 3.0
+
+[node name="Island" type="Spatial" groups=["Climbable", "Island"]]
+script = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 2 )
+
+[node name="Bounds" type="Area" parent="." groups=["IslandBounds"]]
+
+[node name="CollisionShape" type="CollisionShape" parent="Bounds"]
+shape = SubResource( 3 )

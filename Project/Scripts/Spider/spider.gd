@@ -6,12 +6,12 @@ onready var floor_cast : Spatial = $FloorCast
 onready var AI : Node = $AI
 
 export var WEB_SCENE = preload("res://Scenes/Web.tscn")
-export var GRAVITY := 80.0
-export var SPEED := 20.0
+export var GRAVITY := 8.0
+export var SPEED := 2.0
 
 var down := Vector3.DOWN
-var rot_snap := 90.0
-var vel_snap := 10.0
+var rot_snap := 10.0
+var vel_snap := 1.0
 var flat_vel := Vector3.ZERO
 var target_vel := Vector3.ZERO
 
@@ -35,7 +35,7 @@ func _process(delta : float) -> void:
 	flat_vel = Plane(transform.basis.y, 0.0).project(linear_velocity)
 	
 	if !anim_override:
-		if flat_vel.length() > 1.0:
+		if flat_vel.length() > 0.1:
 			anim.run()
 		else:
 			anim.idle()
@@ -46,7 +46,7 @@ func _process(delta : float) -> void:
 	if auto_movement:
 		move_towards(target_vel)
 	
-	if (flat_vel - flat_vel.project(-transform.basis.x)).length() > 0.5:
+	if (flat_vel - flat_vel.project(-transform.basis.x)).length() > 0.05:
 		var offset = flat_vel.normalized().cross(-transform.basis.x)
 		apply_torque_impulse(-offset * rot_snap * delta)
 	

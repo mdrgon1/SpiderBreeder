@@ -2,6 +2,9 @@ extends Node
 
 const SPEED := 30.0
 const SENSITIVITY := 0.002
+const GRAVITY := 0.0
+
+var vel := Vector3.ZERO
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -13,10 +16,10 @@ func _physics_process(delta) -> void:
 	var right : Vector3 = owner.transform.basis.x
 	
 	var input := get_input_vec()
-	var vel := input.y * forward + input.x * right
-	vel *= SPEED
 	
-	owner.move_and_slide(vel, Vector3.UP)
+	vel = SPEED * (input.y * forward + input.x * right) + Vector3.UP * vel.y
+	vel.y -= GRAVITY * delta
+	vel = owner.move_and_slide(vel, Vector3.UP)
 
 func get_input_vec() -> Vector2:
 	var out := Vector2.ZERO

@@ -1,18 +1,31 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Island.gd" type="Script" id=1]
+[ext_resource path="res://Assets/grid.shader" type="Shader" id=2]
 
 [sub_resource type="CylinderShape" id=1]
-height = 6.0
-radius = 60.0
+height = 3.0
+radius = 30.0
 
 [sub_resource type="CylinderMesh" id=2]
-top_radius = 60.0
-bottom_radius = 60.0
-height = 6.0
+top_radius = 30.0
+bottom_radius = 30.0
+height = 3.0
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 2 )
+shader_param/size = 1.0
+shader_param/offset = Vector3( 0, 0, 0 )
+shader_param/light_col = Color( 0.909804, 0.909804, 0.909804, 1 )
+shader_param/dark_col = Color( 0.631373, 0.631373, 0.631373, 1 )
+shader_param/border_col = Color( 0.282353, 0.282353, 0.282353, 1 )
+shader_param/borderThickness = 0.05
 
 [sub_resource type="SphereShape" id=3]
-radius = 21.833
+radius = 53.31
 
-[node name="Island" type="Spatial" groups=["Climbable"]]
+[node name="Island" type="Spatial" groups=["Climbable", "Island"]]
+script = ExtResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 collision_layer = 3
@@ -23,8 +36,10 @@ shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
 mesh = SubResource( 2 )
+material/0 = SubResource( 4 )
 
-[node name="Bounds" type="Area" parent="."]
+[node name="Bounds" type="Area" parent="." groups=["IslandBounds"]]
 
 [node name="CollisionShape" type="CollisionShape" parent="Bounds"]
+transform = Transform( 1.00242, 0, 0, 0, 1.00242, 0, 0, 0, 1.00242, 0, 0, 0 )
 shape = SubResource( 3 )

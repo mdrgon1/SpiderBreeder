@@ -17,6 +17,9 @@ func _input(e : InputEvent):
 		if c and c.is_in_group("Spider"):
 			eat_spider(c)
 
+func _enter_tree():
+	Utils.player = self
+
 func breed_spider():
 	var spider : CollisionObject = SPIDER_SCENE.instance()
 	var spider_collider_shape = spider.shape_owner_get_shape(0, 0)
@@ -32,6 +35,6 @@ func breed_spider():
 	
 	spider.translation = view_ray.global_transform.origin + motion * dist
 	get_tree().root.add_child(spider)
-	
+
 func eat_spider(c : Node):
 	c.queue_free()
